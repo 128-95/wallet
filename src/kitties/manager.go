@@ -12,6 +12,7 @@ import (
 
 	"github.com/pkg/errors"
 
+	"github.com/kittycash/kittiverse/src/kitty"
 	"github.com/kittycash/wallet/src/iko"
 )
 
@@ -54,7 +55,7 @@ func (m *Manager) Count(req *http.Request) (*http.Response, error) {
 }
 
 type EntryOut struct {
-	Entry *iko.KittyEntry `json:"entry"`
+	Entry *kitty.Kitty `json:"kitty"`
 }
 
 func (m *Manager) Entry(bc *iko.BlockChain, req *http.Request) (*http.Response, error) {
@@ -76,9 +77,9 @@ func (m *Manager) Entry(bc *iko.BlockChain, req *http.Request) (*http.Response, 
 }
 
 type EntriesOut struct {
-	TotalCount int64             `json:"total_count"`
-	PageCount  int               `json:"page_count"`
-	Entries    []*iko.KittyEntry `json:"entries"`
+	TotalCount int64          `json:"total_count"`
+	PageCount  int            `json:"page_count"`
+	Entries    []*kitty.Kitty `json:"kitties"` // TODO adapt to new structure
 }
 
 func (m *Manager) Entries(bc *iko.BlockChain, req *http.Request) (*http.Response, error) {
@@ -147,7 +148,7 @@ func errURLTransFail(err error) error {
 		"failed to transform URL")
 }
 
-func errNoStateInfo(kittyID iko.KittyID) error {
+func errNoStateInfo(kittyID kitty.KittyID) error {
 	return errors.Errorf(
 		"no state information for kitty of ID '%d'", kittyID)
 }

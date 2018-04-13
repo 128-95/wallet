@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/kittycash/kittiverse/src/kitty"
 	"github.com/skycoin/skycoin/src/cipher"
 	"github.com/skycoin/skycoin/src/cipher/encoder"
 )
@@ -34,7 +35,7 @@ type TxAction func(tx *Transaction) error
 // Transaction represents a kitty transaction.
 // For IKO, transaction and block are combined to formed one entity.
 type Transaction struct {
-	KittyID KittyID
+	KittyID kitty.KittyID
 	In      TxHash
 	Out     cipher.Address
 	Sig     cipher.Sig
@@ -54,7 +55,7 @@ type TxWrapper struct {
 
 // NewGenTx creates a "generation" transaction.
 // This is where a kitty is created on the blockchain.
-func NewGenTx(kittyID KittyID, sk cipher.SecKey) *Transaction {
+func NewGenTx(kittyID kitty.KittyID, sk cipher.SecKey) *Transaction {
 	var (
 		address = cipher.AddressFromSecKey(sk)
 		tx      = &Transaction{

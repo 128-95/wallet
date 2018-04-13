@@ -9,6 +9,7 @@ import (
 	"github.com/skycoin/skycoin/src/cipher"
 	"gopkg.in/sirupsen/logrus.v1"
 
+	"github.com/kittycash/kittiverse/src/kitty"
 	"github.com/kittycash/wallet/src/util"
 )
 
@@ -149,7 +150,7 @@ func (bc *BlockChain) GetTxOfSeq(seq uint64) (TxWrapper, error) {
 	return bc.chain.GetTxOfSeq(seq)
 }
 
-func (bc *BlockChain) GetKittyState(kittyID KittyID) (*KittyState, bool) {
+func (bc *BlockChain) GetKittyState(kittyID kitty.KittyID) (*KittyState, bool) {
 	bc.mux.RLock()
 	defer bc.mux.RUnlock()
 

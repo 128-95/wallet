@@ -12,6 +12,7 @@ import (
 	"github.com/skycoin/skycoin/src/cipher"
 	"github.com/stretchr/testify/require"
 
+	"github.com/kittycash/kittiverse/src/kitty"
 	"github.com/kittycash/wallet/src/iko"
 )
 
@@ -79,7 +80,7 @@ func genTxWraps(count, start int) []iko.TxWrapper {
 	)
 	for i := range out {
 		out[i] = iko.TxWrapper{
-			Tx:   *iko.NewGenTx(iko.KittyID(i+start), GenSK),
+			Tx:   *iko.NewGenTx(kitty.KittyID(i+start), GenSK),
 			Meta: genTxMeta(uint64(i + start)),
 		}
 	}

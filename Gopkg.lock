@@ -26,6 +26,12 @@
   revision = "e89373fe6b4a7413d7acd6da1725b83ef713e6e4"
 
 [[projects]]
+  branch = "develop"
+  name = "github.com/kittycash/kittiverse"
+  packages = ["src/kitty"]
+  revision = "7f74fce3440feee6b5e08c63a45d4665d9b11ba3"
+
+[[projects]]
   name = "github.com/klauspost/cpuid"
   packages = ["."]
   revision = "ae7887de9fa5d2db4eaa8174a7eff2c1ac00f2da"
@@ -155,6 +161,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "2099ca85995e75acd17632e06f890c8cb27a9e032d300bb7de4f95ea684fc7ed"
+  inputs-digest = "fbd64dbd25f0736071803da89bede27c203a494a755baf899100bd6e5c97e639"
   solver-name = "gps-cdcl"
   solver-version = 1

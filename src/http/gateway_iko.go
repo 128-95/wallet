@@ -12,6 +12,7 @@ import (
 	"github.com/skycoin/skycoin/src/cipher"
 	"github.com/skycoin/skycoin/src/cipher/encoder"
 
+	"github.com/kittycash/kittiverse/src/kitty"
 	"github.com/kittycash/wallet/src/iko"
 )
 
@@ -27,14 +28,14 @@ func ikoGateway(m *http.ServeMux, g *iko.BlockChain) error {
 }
 
 type KittyReply struct {
-	KittyID      iko.KittyID `json:"kitty_id"`
-	Address      string      `json:"address"`
-	Transactions []string    `json:"transactions"`
+	KittyID      kitty.KittyID `json:"kitty_id"`
+	Address      string        `json:"address"`
+	Transactions []string      `json:"transactions"`
 }
 
 func getKitty(g *iko.BlockChain) HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request, p *Path) error {
-		kittyID, e := iko.KittyIDFromString(p.Base)
+		kittyID, e := kitty.KittyIDFromString(p.Base)
 		if e != nil {
 			return sendJson(w, http.StatusBadRequest,
 				e.Error())
@@ -62,9 +63,9 @@ func getKitty(g *iko.BlockChain) HandlerFunc {
 }
 
 type AddressReply struct {
-	Address      string       `json:"address"`
-	Kitties      iko.KittyIDs `json:"kitties"`
-	Transactions []string     `json:"transactions,omitempty"`
+	Address      string         `json:"address"`
+	Kitties      kitty.KittyIDs `json:"kitties"`
+	Transactions []string       `json:"transactions,omitempty"`
 }
 
 func getAddress(g *iko.BlockChain) HandlerFunc {
@@ -94,7 +95,7 @@ func getAddress(g *iko.BlockChain) HandlerFunc {
 
 type BalanceReply struct {
 	KittyCount int                     `json:"kitty_count"`
-	Kitties    iko.KittyIDs            `json:"kitties"`
+	Kitties    kitty.KittyIDs          `json:"kitties"`
 	PerAddress map[string]BalanceReply `json:"per_address,omitempty"`
 }
 
@@ -109,7 +110,7 @@ func getBalance(g *iko.BlockChain) HandlerFunc {
 				fmt.Sprintf("Error: %s", e.Error()))
 		}
 		var reply = BalanceReply{
-			Kitties: make([]iko.KittyID, len(addrs)),
+			Kitties: make([]kitty.KittyID, len(addrs)),
 		}
 		for _, addr := range addrs {
 			aState := g.GetAddressState(addr)
@@ -129,10 +130,10 @@ type TxMeta struct {
 }
 
 type Tx struct {
-	KittyID iko.KittyID `json:"kitty_id"`
-	In      string      `json:"in"`
-	Out     string      `json:"out"`
-	Sig     string      `json:"sig"`
+	KittyID kitty.KittyID `json:"kitty_id"`
+	In      string        `json:"in"`
+	Out     string        `json:"out"`
+	Sig     string        `json:"sig"`
 }
 
 type TxReply struct {

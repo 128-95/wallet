@@ -10,6 +10,7 @@ import (
 	"github.com/skycoin/skycoin/src/cipher"
 	"github.com/stretchr/testify/require"
 
+	"github.com/kittycash/kittiverse/src/kitty"
 	"github.com/kittycash/wallet/src/cxo"
 )
 
@@ -102,7 +103,7 @@ func runChainDBTest(t *testing.T, chainDB ChainDB) {
 
 	t.Run("withTransactions", func(t *testing.T) {
 		var (
-			kittyID = KittyID(5)
+			kittyID = kitty.KittyID(5)
 			_, sk2  = cipher.GenerateDeterministicKeyPair([]byte("2nd tx seed"))
 			addr2   = cipher.AddressFromSecKey(sk2)
 		)

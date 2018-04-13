@@ -3,6 +3,7 @@ package iko
 import (
 	"testing"
 
+	"github.com/kittycash/kittiverse/src/kitty"
 	"github.com/skycoin/skycoin/src/cipher"
 	"github.com/stretchr/testify/require"
 )
@@ -14,13 +15,13 @@ func runTransactionVerifyTest(t *testing.T) {
 	)
 
 	t.Run("TransactionCreated_InvalidPrevTransaction", func(t *testing.T) {
-		prev := NewGenTx(KittyID(3), sk0)
+		prev := NewGenTx(kitty.KittyID(3), sk0)
 		require.Errorf(t, prev.VerifyWith(prev, pk0),
 			"should fail")
 	})
 
 	var (
-		kID    = KittyID(3)
+		kID    = kitty.KittyID(3)
 		pk1, _ = cipher.GenerateDeterministicKeyPair([]byte("seed 1"))
 		ad1    = cipher.AddressFromPubKey(pk1)
 	)
@@ -49,7 +50,7 @@ func runTransactionVerifyTest(t *testing.T) {
 func runTransactionIsKittyGen(t *testing.T) {
 	var (
 		_, sk0 = cipher.GenerateDeterministicKeyPair([]byte("seed 0"))
-		genTx  = NewGenTx(KittyID(4), sk0)
+		genTx  = NewGenTx(kitty.KittyID(4), sk0)
 	)
 
 	t.Run("Transaction_AuditIsKittyGen_VerifyFalse", func(t *testing.T) {
